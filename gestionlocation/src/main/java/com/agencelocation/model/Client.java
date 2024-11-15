@@ -1,23 +1,23 @@
 package com.agencelocation.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nom;
-    private String prenom;
-    private String adresse;
+    private String email;
     private String numeroTelephone;
     private String permisConduire;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "client")
     private List<ContratLocation> contrats;
 
-    // Getters et setters
+    // Getters and setters
 }

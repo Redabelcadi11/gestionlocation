@@ -1,1 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EAZYRENT</title>
+</head>
+<body>
+<h1>Nos véhicules à louer</h1>
+<ul>
+    <th:block th:each="vehicule : ${vehicules}">
+        <li>
+            <img th:src="@{${vehicule.imageUrl}}" alt="Image du véhicule"/>
+            <p th:text="${vehicule.marque} + ' ' + ${vehicule.modele}"></p>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>
 

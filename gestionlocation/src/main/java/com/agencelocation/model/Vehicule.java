@@ -13,6 +13,7 @@ public class Vehicule {
     private String marque;
     private String modele;
     private String immatriculation;
+    private String imageUrl;
 
     @ManyToMany
     @JoinTable(

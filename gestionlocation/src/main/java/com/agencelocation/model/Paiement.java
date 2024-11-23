@@ -1,5 +1,4 @@
 package com.agencelocation.model;
-
 import jakarta.persistence.*;
 
 @Entity

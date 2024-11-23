@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -22,19 +23,27 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
-        Client client = clientRepository.findByUsername(username);
+        // Utilisation de findByUsername() qui retourne un Optional<Client>
+        Optional<Client> optionalClient = clientRepository.findByUsername(username);
 
-        if (client != null && client.getPassword().equals(password)) {
-            if (client.getRole() == Client.Role.ADMIN) {
-                return "redirect:/admin-dashboard"; // Page spécifique admin
+        if (optionalClient.isPresent()) {
+            Client client = optionalClient.get();  // Extraction de l'objet Client de l'Optional
+            if (client.getPassword().equals(password)) {
+                if (client.getRole() == Client.Role.ROLE_ADMIN) { // Correction du rôle: ROLE_ADMIN
+                    return "redirect:/admin"; // Page spécifique admin
+                } else {
+                    return "redirect:/home"; // Redirection vers la page principale client
+                }
             } else {
-                return "redirect:/home"; // Redirection vers la page principale client
+                model.addAttribute("error", "Nom d'utilisateur ou mot de passe incorrect");
+                return "login"; // Retourne à la page de connexion
             }
         } else {
             model.addAttribute("error", "Nom d'utilisateur ou mot de passe incorrect");
-            return "login"; // Retourne à la page de connexion
+            return "login"; // Retourne à la page de connexion si le client n'est pas trouvé
         }
     }
+
 
     @GetMapping("/register")
     public String registerPage() {
@@ -48,7 +57,7 @@ public class AuthController {
         newClient.setPassword(password);
         newClient.setEmail(email);
         newClient.setNumeroTelephone(numeroTelephone);
-        newClient.setRole(Client.Role.CLIENT);
+        newClient.setRole(Client.Role.ROLE_CLIENT);
         clientRepository.save(newClient);
         return "redirect:/login";
     }

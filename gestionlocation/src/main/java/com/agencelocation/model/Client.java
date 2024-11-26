@@ -11,13 +11,14 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
     private String password;
     private String email;
-    private int numeroTelephone;
+    private String numeroTelephone;
     private String permisConduire;
 
-    @Enumerated(EnumType.STRING)  // Important : cela va garantir que la valeur du rôle est stockée comme une chaîne, par exemple "ROLE_ADMIN" ou "ROLE_CLIENT".
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "client")
@@ -47,14 +48,19 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getEmail() { return email; }
 
-    public void setNumeroTelephone(int num) {
+
+
+    public void setNumeroTelephone(String num) {
         this.numeroTelephone = num;
     }
+    public String getNumeroTelephone() { return numeroTelephone; }
 
     public void setRole(Role role) {
         this.role = role;
     }
+
 
     public enum Role {
         ROLE_ADMIN, ROLE_CLIENT  // Assurez-vous que les rôles sont bien formatés avec "ROLE_"

@@ -1,27 +1,55 @@
 package com.agencelocation.model;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Vehicule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String modele;
-    private String marque;
-    private String numeroImmatriculation;
-    private String type;
-    private Double tarifJournalier;
-    private boolean disponibilite;
+    private String immatriculation;
+    private String imageUrl;
 
-    @OneToOne(mappedBy = "vehicule", cascade = CascadeType.ALL)
-    private Assurance assurance;
+    @ManyToMany
+    @JoinTable(
+            name = "vehicule_categorie",
+            joinColumns = @JoinColumn(name = "vehicule_id"),
+            inverseJoinColumns = @JoinColumn(name = "categorie_id")
+    )
+    private Set<VehiculeType> categories;
 
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
-    private List<Entretien> entretiens;
+    // Getters and setters
+    public Set<VehiculeType> getCategories() {
+        return categories;
+    }
 
-    // Getters et setters
+    public void setCategories(Set<VehiculeType> categories) {
+        this.categories = categories;
+    }
+
+
+    public String getModele() {
+        return modele;
+    }
+    public void setModele(String modele) {
+        this.modele = modele;
+    }
+
+
+    public void setImmatriculation(String immatriculation){ this.immatriculation = immatriculation;}
+    public String getImmatriculation() {
+        return immatriculation;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

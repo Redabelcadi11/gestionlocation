@@ -2,18 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EAZYRENT</title>
+    <script src="https://cdn.tailwindcss.com"></script>  <!-- Intégration de Tailwind CSS -->
 </head>
-<body>
-<h1>Nos véhicules à louer</h1>
-<ul>
-    <th:block th:each="vehicule : ${vehicules}">
-        <li>
-            <img th:src="@{${vehicule.imageUrl}}" alt="Image du véhicule"/>
-            <p th:text="${vehicule.marque} + ' ' + ${vehicule.modele}"></p>
-        </li>
-    </th:block>
-</ul>
+<body class="bg-gray-100 font-sans antialiased">
+
+<!-- Navbar -->
+<header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-semibold">EAZYRENT</h1>
+        <nav class="space-x-4">
+            <!-- Affichage conditionnel des boutons de connexion/inscription ou déconnexion -->
+            <div th:if="${#authentication?.authenticated}">
+                <a href="/logout" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
+            </div>
+            <div th:unless="${#authentication?.authenticated}">
+                <a href="/login" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Connexion</a>
+                <a href="/register" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Inscription</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Content Section -->
+<main class="container mx-auto p-6">
+    <h2 class="text-2xl font-semibold mb-4">Nos véhicules à louer</h2>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Boucle Thymeleaf pour afficher les véhicules -->
+        <th:block th:each="vehicule : ${vehicules}">
+            <li class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img th:src="${vehicule.imageUrl}" alt="Image du véhicule" class="w-full h-64 object-cover"/>
+                <div class="p-4">
+                    <p class="text-lg font-semibold" th:text="${vehicule.modele}"></p>
+                    <p class="text-gray-500" th:text="${vehicule.immatriculation}"></p>
+                </div>
+            </li>
+        </th:block>
+    </ul>
+</main>
+
 </body>
 </html>
-

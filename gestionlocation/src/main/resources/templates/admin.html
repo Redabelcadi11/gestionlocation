@@ -1,0 +1,41 @@
+<form action="#" th:action="@{/admin/vehicule}" method="post" th:object="${vehicule}" enctype="multipart/form-data">
+
+    <!-- Champ Modèle -->
+    <div class="mb-4">
+        <label for="modele" class="block text-sm font-medium text-gray-700">Modèle</label>
+        <input type="text" id="modele" th:field="*{modele}" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+
+    <!-- Champ Immatriculation -->
+    <div class="mb-4">
+        <label for="immatriculation" class="block text-sm font-medium text-gray-700">Immatriculation</label>
+        <input type="text" id="immatriculation" th:field="*{immatriculation}" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+
+    <!-- Champ URL de l'image -->
+    <div class="mb-4">
+        <label for="imageUrl" class="block text-sm font-medium text-gray-700">URL de l'image</label>
+        <input type="text" id="imageUrl" th:field="*{imageUrl}" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Entrez l'URL de l'image" required />
+    </div>
+
+    <!-- Sélection des catégories -->
+    <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Catégories</label>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Catégories</label>
+            <div class="space-y-2">
+                <div th:each="categorie : ${categories}">
+                    <label class="flex items-center">
+                        <input type="checkbox" th:field="*{categories}" th:value="${categorie.id}" class="mr-2" />
+                        <span th:text="${categorie.nom}"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton pour soumettre le formulaire -->
+    <div class="flex justify-center mt-6">
+        <button type="submit" class="px-6 py-2 text-white bg-blue-500 hover:bg-blue-700 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Enregistrer</button>
+    </div>
+</form>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAZYRENT</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Intégration de Tailwind CSS -->
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+<!-- Navbar -->
+<header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-semibold">EAZYRENT</h1>
+        <nav class="space-x-4">
+            <div th:if="${#authentication?.authenticated}">
+                <a href="/logout" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
+            </div>
+            <div th:unless="${#authentication?.authenticated}">
+                <a href="/login" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Connexion</a>
+                <a href="/register" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Inscription</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-cover bg-center h-64 text-white flex items-center justify-center shadow-md" style="background-image: url('https://source.unsplash.com/1600x900/?car');">
+    <div class="text-center">
+        <h2 class="text-4xl font-bold">Découvrez nos véhicules à louer</h2>
+        <p class="mt-2 text-lg">Les meilleurs véhicules pour vos besoins à portée de clic !</p>
+    </div>
+</section>
+
+<!-- Content Section -->
+<main class="container mx-auto p-6">
+    <h2 class="text-2xl font-semibold mb-4">Nos véhicules disponibles</h2>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Boucle Thymeleaf pour afficher les véhicules -->
+        <th:block th:each="vehicule : ${vehicules}">
+            <li class="bg-white rounded-lg shadow-lg overflow-hidden transform transition hover:scale-105">
+                <img th:src="${vehicule.imageUrl}" alt="Image du véhicule" class="w-full h-56 object-cover"/>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-gray-800" th:text="${vehicule.modele}"></h3>
+                    <p class="text-sm text-gray-500" th:text="${vehicule.immatriculation}"></p>
+                    <p class="mt-2 text-blue-600 font-semibold">Catégories :</p>
+                    <ul class="mt-1 text-sm text-gray-600">
+                        <th:block th:each="categorie : ${vehicule.categories}">
+                            <li th:text="${categorie.nom}"></li>
+                        </th:block>
+                    </ul>
+                </div>
+            </li>
+        </th:block>
+    </ul>
+</main>
+
+<!-- Footer -->
+<footer class="bg-blue-600 text-white p-4 mt-6">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2024 EAZYRENT. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</body>
+</html>

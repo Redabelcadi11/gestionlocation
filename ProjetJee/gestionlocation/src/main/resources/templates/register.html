@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<!-- Navbar -->
+<header class="bg-blue-600 text-white p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-semibold">EAZYRENT</h1>
+    <nav class="space-x-4">
+      <div th:if="${#authentication?.authenticated}">
+        <a href="/logout" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
+      </div>
+      <div th:unless="${#authentication?.authenticated}">
+        <a href="/login" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Connexion</a>
+        <a href="/register" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Inscription</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="min-h-screen flex justify-center items-center">
+  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-center mb-6">Créer un compte</h2>
+
+    <form action="/register" method="POST">
+      <input type="hidden" name="_csrf" value="${_csrf.token}" />
+
+      <div class="mb-4">
+        <label for="username" class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
+        <input type="text" name="username" id="username" required
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+        <input type="password" name="password" id="password" required
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail</label>
+        <input type="email" name="email" id="email" required
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <div class="mb-4">
+        <label for="numeroTelephone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
+        <input type="tel" name="numeroTelephone" id="numeroTelephone" required
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <!-- Champ Permis de conduire -->
+      <div class="mb-4">
+        <label for="permisConduire" class="block text-sm font-medium text-gray-700">Permis de conduire</label>
+        <input type="text" name="permisConduire" id="permisConduire"
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+
+      <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        S'inscrire
+      </button>
+    </form>
+
+    <div class="mt-4 text-center">
+      <p class="text-sm text-gray-600">
+        Vous avez déjà un compte ? <a href="/login" class="text-blue-500 hover:text-blue-600">Connectez-vous</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

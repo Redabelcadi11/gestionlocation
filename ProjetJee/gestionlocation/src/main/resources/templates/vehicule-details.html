@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du véhicule - EAZYRENT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+<!-- Navbar -->
+<header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="/vehicules" class="text-xl font-semibold hover:text-yellow-300 transition duration-200">
+            Retour aux véhicules
+        </a>
+    </div>
+</header>
+
+<!-- Détails du véhicule -->
+<section class="container mx-auto py-8">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex flex-col sm:flex-row items-center">
+            <img th:src="${vehicule.imageUrl}" alt="Image du véhicule" class="w-full sm:w-1/2 h-64 object-cover rounded-md"/>
+            <div th:if="${vehicule != null}">
+                <h1 th:text="${vehicule.modele}">Modèle</h1>
+                <p th:text="'Immatriculation : ' + ${vehicule.immatriculation}">Immatriculation</p>
+                <p th:text="'Prix par jour : ' + ${vehicule.prix} + ' €'">Prix</p>
+            </div>
+            <div th:if="${vehicule == null}">
+                <p>Le véhicule demandé est introuvable.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

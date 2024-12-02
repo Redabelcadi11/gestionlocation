@@ -1,12 +1,9 @@
 package com.agencelocation.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import com.agencelocation.config.CustomUserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -21,36 +18,37 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // Ne fait aucune transformation sur le mot de passe
+        // Attention : NoOpPasswordEncoder ne doit pas être utilisé en production
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // Configuration de la sécurité
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/register", "/login")
+                        .ignoringRequestMatchers("/register", "/login") // Désactive CSRF pour ces URLs si besoin
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home", "/register", "/login").permitAll()
+                        // URLs publiques accessibles sans authentification
+                        .requestMatchers("/", "/home", "/register", "/login", "/vehicules", "/vehicules/**").permitAll()
+                        // Accès spécifique pour l'admin
                         .requestMatchers("/admin").hasRole("ADMIN")
+                        // Toutes les autres requêtes nécessitent une authentification
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .loginPage("/login") // Page personnalisée pour le login
+                        .defaultSuccessUrl("/home") // Redirige après un login réussi
                         .permitAll()
                 )
                 .exceptionHandling(exceptions -> exceptions
-                        .accessDeniedPage("/home") // Si l'utilisateur n'a pas accès à /admin, il est redirigé vers /home
+                        .accessDeniedPage("/home") // Redirection en cas d'accès refusé
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/")
-                        .permitAll() // Permet à tout le monde d'effectuer une déconnexion
+                        .logoutSuccessUrl("/") // URL de redirection après déconnexion
+                        .permitAll()
                 );
 
         return http.build();
     }
 }
-
-

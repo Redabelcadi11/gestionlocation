@@ -1,7 +1,9 @@
 package com.agencelocation.model;
 
-import jakarta.persistence.*;
-import java.util.Set;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class VehiculeType {
@@ -12,18 +14,14 @@ public class VehiculeType {
 
     private String nom;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Vehicule> vehicules;
+    public VehiculeType() {
+        // Constructeur par défaut
+    }
 
-    // Constructeur sans arguments
-    public VehiculeType() {}
-
-    // Constructeur avec nom
     public VehiculeType(String nom) {
         this.nom = nom;
     }
 
-    // Getters et setters
     public Long getId() {
         return id;
     }
@@ -38,13 +36,5 @@ public class VehiculeType {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Set<Vehicule> getVehicules() {
-        return vehicules;
-    }
-
-    public void setVehicules(Set<Vehicule> vehicules) {
-        this.vehicules = vehicules;
     }
 }

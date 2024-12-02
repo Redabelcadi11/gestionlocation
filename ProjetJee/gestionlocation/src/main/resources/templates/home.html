@@ -11,7 +11,9 @@
 <!-- Navbar -->
 <header class="bg-blue-600 text-white p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-semibold">EAZYRENT</h1>
+        <a href="/home" class="text-xl font-semibold hover:text-yellow-300 transition duration-200">
+            EAZYRENT
+        </a>
         <nav class="space-x-4">
             <div th:if="${#authentication?.authenticated}">
                 <a href="/logout" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
@@ -24,36 +26,19 @@
     </div>
 </header>
 
-<!-- Hero Section -->
-<section class="bg-cover bg-center h-64 text-white flex items-center justify-center shadow-md" style="background-image: url('https://source.unsplash.com/1600x900/?car');">
-    <div class="text-center">
-        <h2 class="text-4xl font-bold">Découvrez nos véhicules à louer</h2>
-        <p class="mt-2 text-lg">Les meilleurs véhicules pour vos besoins à portée de clic !</p>
+<!-- Fullscreen Hero Section -->
+<section class="relative h-screen bg-cover bg-center text-white flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1669254572206-2a44dda91757?q=80&w=2111&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="relative text-center">
+        <h1 class="text-5xl font-bold">Louez Votre Véhicule de Rêve</h1>
+        <p class="mt-4 text-lg">Découvrez un large choix de véhicules adaptés à vos besoins et à vos envies.</p>
+        <a href="/vehicules" class="mt-6 inline-block px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white text-lg font-semibold rounded-md shadow-md transition">
+            Découvrez nos véhicules
+        </a>
     </div>
 </section>
 
-<!-- Content Section -->
-<main class="container mx-auto p-6">
-    <h2 class="text-2xl font-semibold mb-4">Nos véhicules disponibles</h2>
-    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Boucle Thymeleaf pour afficher les véhicules -->
-        <th:block th:each="vehicule : ${vehicules}">
-            <li class="bg-white rounded-lg shadow-lg overflow-hidden transform transition hover:scale-105">
-                <img th:src="${vehicule.imageUrl}" alt="Image du véhicule" class="w-full h-56 object-cover"/>
-                <div class="p-4">
-                    <h3 class="text-lg font-bold text-gray-800" th:text="${vehicule.modele}"></h3>
-                    <p class="text-sm text-gray-500" th:text="${vehicule.immatriculation}"></p>
-                    <p class="mt-2 text-blue-600 font-semibold">Catégories :</p>
-                    <ul class="mt-1 text-sm text-gray-600">
-                        <th:block th:each="categorie : ${vehicule.categories}">
-                            <li th:text="${categorie.nom}"></li>
-                        </th:block>
-                    </ul>
-                </div>
-            </li>
-        </th:block>
-    </ul>
-</main>
+
 
 <!-- Footer -->
 <footer class="bg-blue-600 text-white p-4 mt-6">

@@ -21,8 +21,21 @@ public class Vehicule {
             inverseJoinColumns = @JoinColumn(name = "categorie_id")
     )
     private Set<VehiculeType> categories;
+    private double prix; // Nouvel attribut
+    // Constructeur par défaut
+    public Vehicule() {}
 
-    // Getters and setters
+    // Constructeur personnalisé
+    public Vehicule(Long id, String modele, String immatriculation, String imageUrl, Set<VehiculeType> categories, double prix) {
+        this.id = id;
+        this.modele = modele;
+        this.immatriculation = immatriculation;
+        this.imageUrl = imageUrl;
+        this.categories = categories;
+        this.prix = prix;
+    }
+
+    // Getters et setters
     public Set<VehiculeType> getCategories() {
         return categories;
     }
@@ -31,18 +44,23 @@ public class Vehicule {
         this.categories = categories;
     }
 
-
     public String getModele() {
         return modele;
     }
+
     public void setModele(String modele) {
         this.modele = modele;
     }
 
-
-    public void setImmatriculation(String immatriculation){ this.immatriculation = immatriculation;}
     public String getImmatriculation() {
         return immatriculation;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setImmatriculation(String immatriculation) {
+        this.immatriculation = immatriculation;
     }
 
     public String getImageUrl() {

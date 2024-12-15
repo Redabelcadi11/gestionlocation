@@ -4,9 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscription</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #f7fafc; /* Gris très clair */
+    }
+    input:focus, button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
 <!-- Navbar -->
 <header class="bg-blue-600 text-white p-4 shadow-md">
   <div class="container mx-auto flex justify-between items-center">
@@ -24,55 +34,62 @@
     </nav>
   </div>
 </header>
-<div class="min-h-screen flex justify-center items-center">
-  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-semibold text-center mb-6">Créer un compte</h2>
 
-    <form action="/register" method="POST">
-      <input type="hidden" name="_csrf" value="${_csrf.token}" />
+<!-- Registration Form -->
+<div class="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-16">
+  <h1 class="text-3xl font-semibold text-gray-800 text-center mb-8">Créer un compte</h1>
 
-      <div class="mb-4">
-        <label for="username" class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
-        <input type="text" name="username" id="username" required
-               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-      </div>
+  <form action="/register" method="POST" class="space-y-6">
 
-      <div class="mb-4">
-        <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-        <input type="password" name="password" id="password" required
-               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-      </div>
+    <!-- Username -->
+    <div>
+      <label for="username" class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
+      <input type="text" name="username" id="username" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nom d'utilisateur" required />
+    </div>
 
-      <div class="mb-4">
-        <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail</label>
-        <input type="email" name="email" id="email" required
-               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-      </div>
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail</label>
+      <input type="email" name="email" id="email" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre adresse e-mail" required />
+    </div>
 
-      <div class="mb-4">
-        <label for="numeroTelephone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
-        <input type="tel" name="numeroTelephone" id="numeroTelephone" required
-               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-      </div>
+    <!-- Password -->
+    <div>
+      <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+      <input type="password" name="password" id="password" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre mot de passe" required />
+    </div>
 
-      <!-- Champ Permis de conduire -->
-      <div class="mb-4">
-        <label for="permisConduire" class="block text-sm font-medium text-gray-700">Permis de conduire</label>
-        <input type="text" name="permisConduire" id="permisConduire"
-               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-      </div>
+    <!-- Phone Number -->
+    <div>
+      <label for="numeroTelephone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
+      <input type="tel" name="numeroTelephone" id="numeroTelephone" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre numéro de téléphone" required />
+    </div>
 
-      <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+    <!-- Driving License -->
+    <div>
+      <label for="permisConduire" class="block text-sm font-medium text-gray-700">Permis de conduire</label>
+      <input type="text" name="permisConduire" id="permisConduire" class="mt-1 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre permis de conduire" />
+    </div>
+
+    <!-- Error Messages -->
+    <div th:if="${error}" class="text-red-500 text-sm text-center">
+      <p th:text="${error}">Erreur lors de l'inscription, veuillez réessayer.</p>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <button type="submit" class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all ease-in-out duration-200">
         S'inscrire
       </button>
-    </form>
-
-    <div class="mt-4 text-center">
-      <p class="text-sm text-gray-600">
-        Vous avez déjà un compte ? <a href="/login" class="text-blue-500 hover:text-blue-600">Connectez-vous</a>
-      </p>
     </div>
-  </div>
+
+  </form>
+
+  <!-- Login Link -->
+  <p class="mt-6 text-center text-gray-600 text-sm">
+    Vous avez déjà un compte ?
+    <a href="/login" class="text-blue-500 hover:underline font-semibold">Connectez-vous</a>
+  </p>
 </div>
 
 </body>

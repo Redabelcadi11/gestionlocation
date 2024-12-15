@@ -24,7 +24,17 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<ContratLocation> contrats;
 
-    // Getters and setters
+    private boolean estConnecte; // Nouveau champ pour l'état de connexion
+
+    // Getters et setters
+    public boolean isEstConnecte() {
+        return estConnecte;
+    }
+
+    public void setEstConnecte(boolean estConnecte) {
+        this.estConnecte = estConnecte;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -48,27 +58,41 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getEmail() { return email; }
 
-
-
-    public void setNumeroTelephone(String num) {
-        this.numeroTelephone = num;
-    }
-    public void setPermisConduire(String num) {
-        this.numeroTelephone = num;
+    public String getEmail() {
+        return email;
     }
 
-    public String getNumeroTelephone() { return numeroTelephone; }
-    public String getPermisConduire() { return permisConduire; }
+    public void setNumeroTelephone(String numeroTelephone) {
+        this.numeroTelephone = numeroTelephone;
+    }
+
+    public String getNumeroTelephone() {
+        return numeroTelephone;
+    }
+
+    public void setPermisConduire(String permisConduire) {
+        this.permisConduire = permisConduire;
+    }
+
+    public String getPermisConduire() {
+        return permisConduire;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }
 
-
     public enum Role {
-        ROLE_ADMIN, ROLE_CLIENT  // Assurez-vous que les rôles sont bien formatés avec "ROLE_"
+        ROLE_ADMIN, ROLE_CLIENT
     }
+    public Client(Long id, String username, String password, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+    public Client() {
 
-
+    };
 }

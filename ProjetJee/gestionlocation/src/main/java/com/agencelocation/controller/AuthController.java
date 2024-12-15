@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 @Controller
@@ -50,6 +51,7 @@ public class AuthController {
         newClient.setEmail(email);
         newClient.setNumeroTelephone(numeroTelephone);
         newClient.setRole(Client.Role.ROLE_CLIENT);
+        newClient.setEstConnecte(false); // Par défaut, l'utilisateur n'est pas connecté
 
         // Sauvegarde dans la base de données
         clientRepository.save(newClient);
@@ -57,23 +59,51 @@ public class AuthController {
         return "redirect:/login"; // Redirection vers la page de connexion
     }
 
-    // (Optionnel) Gestion des erreurs lors de la connexion
     @PostMapping("/login")
     public String handleLogin(@RequestParam String username,
                               @RequestParam String password,
                               Model model) {
+        // Log pour vérifier que la méthode est bien appelée
+        System.out.println("Tentative de connexion avec username: " + username);
 
         Optional<Client> clientOpt = clientRepository.findByUsername(username);
+
         if (clientOpt.isPresent() && clientOpt.get().getPassword().equals(password)) {
-            // Ajouter des conditions pour rediriger selon le rôle
-            if (clientOpt.get().getRole() == Client.Role.ROLE_ADMIN) {
-                return "redirect:/admin";
+            Client client = clientOpt.get();
+            client.setEstConnecte(true); // Mise à jour du champ
+            clientRepository.save(client); // Sauvegarde dans la base de données
+
+            // Vérification de la redirection
+            if (username.equals("admin")) {
+                System.out.println("Redirection vers admin");
+                return "redirect:/admin"; // Redirige vers la page admin
             } else {
-                return "redirect:/home";
+                System.out.println("Redirection vers home");
+                return "home"; // Redirige vers la page home
             }
+        } else {
+            // Si les informations de connexion sont incorrectes
+            System.out.println("Nom d'utilisateur ou mot de passe incorrect");
+            model.addAttribute("error", "Nom d'utilisateur ou mot de passe incorrect");
+            return "login"; // Retourne la page de connexion avec message d'erreur
+        }
+    }
+
+
+
+
+    // Gestion de la déconnexion
+    @GetMapping("/logout")
+    public String logout(@RequestParam String username) {
+        Optional<Client> clientOpt = clientRepository.findByUsername(username);
+
+        if (clientOpt.isPresent()) {
+            Client client = clientOpt.get();
+            client.setEstConnecte(false); // Déconnexion
+            clientRepository.save(client);
         }
 
-        model.addAttribute("error", "Nom d'utilisateur ou mot de passe incorrect");
-        return "login"; // Reste sur la page de connexion avec un message d'erreur
+        return "redirect:/login";
     }
+
 }

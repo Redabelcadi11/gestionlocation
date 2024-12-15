@@ -1,55 +1,75 @@
-<head><script src="https://cdn.tailwindcss.com"></script>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
-    <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Ajouter un Véhicule</h2>
+<body class="bg-gray-50">
 
-    <form action="#" th:action="@{/admin/vehicule}" method="post" th:object="${vehicule}" enctype="multipart/form-data">
-        <!-- Champ Modèle -->
-        <div class="mb-6">
-            <label for="modele" class="block text-sm font-semibold text-gray-700">Modèle</label>
-            <input type="text" id="modele" th:field="*{modele}"
-                   class="mt-2 w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   placeholder="Entrez le modèle" required />
-        </div>
+<!-- Section principale de la page admin -->
+<div class="max-w-7xl mx-auto mt-12 bg-white p-10 rounded-3xl shadow-2xl">
 
-        <!-- Champ Immatriculation -->
-        <div class="mb-6">
-            <label for="immatriculation" class="block text-sm font-semibold text-gray-700">Immatriculation</label>
-            <input type="text" id="immatriculation" th:field="*{immatriculation}"
-                   class="mt-2 w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   placeholder="Entrez l'immatriculation" required />
-        </div>
+    <!-- Titre de la page -->
+    <h1 class="text-4xl font-extrabold text-center text-blue-600 mb-12">Tableau de Bord Administrateur</h1>
 
-        <!-- Champ URL de l'image -->
-        <div class="mb-6">
-            <label for="imageUrl" class="block text-sm font-semibold text-gray-700">URL de l'image</label>
-            <input type="url" id="imageUrl" th:field="*{imageUrl}"
-                   class="mt-2 w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   placeholder="Entrez l'URL de l'image" required />
-        </div>
+    <!-- Section des actions -->
+    <div class="space-y-10">
 
-        <!-- Sélection des catégories -->
-        <div class="mb-6">
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Catégories</label>
-            <div class="grid grid-cols-2 gap-4">
-                <div th:each="categorie : ${categories}">
-                    <label class="flex items-center">
-                        <input type="checkbox" th:field="*{categories}" th:value="${categorie.id}"
-                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2" />
-                        <span th:text="${categorie.nom}" class="text-gray-700 text-sm"></span>
-                    </label>
-                </div>
+        <!-- Gestion des Véhicules -->
+        <div class="bg-gradient-to-r from-blue-100 to-blue-50 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestion des Véhicules</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <a href="/admin/vehicule/ajouter" class="bg-blue-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                    Ajouter un Nouveau Véhicule
+                </a>
+                <a href="/admin/vehicule/supprimerVehicule" class="bg-red-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+                    Supprimer un Véhicule
+                </a>
+                <a href="/admin/vehicule/afficher" class="bg-green-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-green-600 focus:ring-offset-2">
+                    Afficher les Véhicules
+                </a>
+                <a href="/admin/vehicule/modifier" class="bg-yellow-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2">
+                    Modifier un Véhicule
+                </a>
             </div>
         </div>
 
-        <!-- Bouton Enregistrer -->
-        <div class="text-center">
-            <button type="submit"
-                    class="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
-                Enregistrer
-            </button>
+        <!-- Gestion des Clients -->
+        <div class="bg-gradient-to-r from-purple-100 to-purple-50 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestion des Clients</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <a href="/admin/client/ajouter" class="bg-blue-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                    Ajouter un Nouveau Client
+                </a>
+                <a href="/admin/client/supprimer" class="bg-red-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+                    Supprimer un Client
+                </a>
+                <a href="/admin/client" class="bg-green-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-green-600 focus:ring-offset-2">
+                    Afficher les Clients
+                </a>
+                <a href="/admin/client/modifier" class="bg-yellow-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2">
+                    Modifier un Client
+                </a>
+            </div>
         </div>
-    </form>
+
+        <!-- Gestion des Contrats -->
+        <div class="bg-gradient-to-r from-green-100 to-green-50 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestion des Contrats</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <a href="/admin/contrat/ajouter" class="bg-blue-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                    Ajouter un Nouveau Contrat
+                </a>
+                <a href="/admin/contrat/supprimer" class="bg-red-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+                    Supprimer un Contrat
+                </a>
+                <a href="/admin/contrat" class="bg-green-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-green-600 focus:ring-offset-2">
+                    Afficher les Contrats
+                </a>
+                <a href="/admin/contrat/modifier" class="bg-yellow-600 text-white text-center px-6 py-4 rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:scale-105 focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2">
+                    Modifier un Contrat
+                </a>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-
+</body>

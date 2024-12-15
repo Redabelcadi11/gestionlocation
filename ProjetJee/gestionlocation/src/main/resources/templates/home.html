@@ -5,20 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EAZYRENT</title>
     <script src="https://cdn.tailwindcss.com"></script> <!-- Intégration de Tailwind CSS -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
-
-<!-- Navbar -->
+<!-- Header -->
 <header class="bg-blue-600 text-white p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
         <a href="/home" class="text-xl font-semibold hover:text-yellow-300 transition duration-200">
             EAZYRENT
         </a>
         <nav class="space-x-4">
-            <div th:if="${#authentication?.authenticated}">
-                <a href="/logout" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
+            <div th:if="${isConnected}">
+                <a href="/profil" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded-md">Profil</a>
+                <a href="/logout" th:href="@{/logout(username=${client.username})}"
+                   class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
             </div>
-            <div th:unless="${#authentication?.authenticated}">
+            <div th:if="${!isConnected}">
                 <a href="/login" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Connexion</a>
                 <a href="/register" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Inscription</a>
             </div>
@@ -26,22 +32,126 @@
     </div>
 </header>
 
-<!-- Fullscreen Hero Section -->
-<section class="relative h-screen bg-cover bg-center text-white flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1669254572206-2a44dda91757?q=80&w=2111&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+
+
+
+
+
+<!-- Hero Section -->
+<section class="relative h-screen bg-cover bg-center text-white flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1669254572206-2a44dda91757?q=80&w=2111&auto=format&fit=crop');">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
     <div class="relative text-center">
         <h1 class="text-5xl font-bold">Louez Votre Véhicule de Rêve</h1>
         <p class="mt-4 text-lg">Découvrez un large choix de véhicules adaptés à vos besoins et à vos envies.</p>
-        <a href="/vehicules" class="mt-6 inline-block px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white text-lg font-semibold rounded-md shadow-md transition">
-            Découvrez nos véhicules
+        <a href="#pourquoi-choisir" class="mt-6 inline-block px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white text-lg font-semibold rounded-md shadow-md transition">
+            Explorez nos offres
         </a>
     </div>
 </section>
 
+<!-- Pourquoi Nous Choisir (Section modifiée avec un id pour ancrage) -->
+<section id="pourquoi-choisir" class="bg-gray-50 py-20">
+    <div class="container mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-12">Pourquoi Choisir <span class="text-blue-600">EAZYRENT</span> ?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105">
+                <div class="text-blue-600 text-5xl mb-4">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Large Sélection</h3>
+                <p class="text-gray-700">Accédez à une gamme variée de véhicules pour répondre à tous vos besoins, que ce soit pour un voyage d'affaires, un week-end en famille, ou une escapade en ville.</p>
+            </div>
+            <div class="p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105">
+                <div class="text-blue-600 text-5xl mb-4">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Prix Compétitifs</h3>
+                <p class="text-gray-700">Nous proposons des prix abordables pour toutes nos options de location. Vous pourrez profiter de véhicules de qualité à des prix qui respectent votre budget, sans compromis.</p>
+            </div>
+            <div class="p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105">
+                <div class="text-blue-600 text-5xl mb-4">
+                    <i class="fas fa-thumbs-up"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Service Fiable</h3>
+                <p class="text-gray-700">Avec un service client dédié et des véhicules bien entretenus, nous garantissons une expérience de location sans souci. Vous pouvez compter sur nous pour vous offrir une expérience fluide et agréable.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- Nouvelle section avec un bouton redirigeant vers les véhicules -->
+<section class="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 py-16">
+    <div class="container mx-auto text-center text-white">
+        <h2 class="text-4xl font-bold mb-6">Explorez Nos Véhicules Disponibles</h2>
+        <p class="mb-8 text-lg">Parcourez notre large sélection de véhicules pour trouver celui qui correspond à vos besoins et à vos envies.</p>
+        <a href="/vehicules" class="px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-lg font-semibold rounded-md shadow-lg transform hover:scale-105 transition-all duration-300">
+            Voir tous les véhicules
+        </a>
+    </div>
+</section>
+
+<!-- Galerie de Véhicules -->
+<section class="bg-gray-100 py-16">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Nos Véhicules Disponibles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Véhicule 1 -->
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl">
+                <img src="https://img4.autodeclics.com/photo_article/87360/21258/1200-L-guide-d-achat.jpg" alt="Véhicule 1" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">Véhicule Compact</h3>
+                    <p class="text-gray-600">Idéal pour les déplacements en ville.</p>
+                    <p class="font-bold text-xl text-blue-600">€29 / jour</p>
+                    <a href="/vehicules?categorie=Compact&modele=" class="text-blue-500 hover:underline mt-2 block">Voir détails</a>
+                </div>
+            </div>
+            <!-- Véhicule 2 -->
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl">
+                <img src="https://www.reezocar.com/blog/wp-content/uploads/2016/04/Maserati-1.jpg" alt="Véhicule 2" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">SUV Luxe</h3>
+                    <p class="text-gray-600">Confort et élégance pour vos trajets.</p>
+                    <p class="font-bold text-xl text-blue-600">€69 / jour</p>
+                    <a href="/vehicules?categorie=SUV&modele=" class="text-blue-500 hover:underline mt-2 block">Voir détails</a>
+                </div>
+            </div>
+            <!-- Véhicule 3 -->
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl">
+                <img src="https://rpmweb.ca/medias/Alfa20Romeo20Giulia20GTAm202021-7.jpg" alt="Véhicule 3" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg">Voiture Sport</h3>
+                    <p class="text-gray-600">Vivez l'émotion de la vitesse.</p>
+                    <p class="font-bold text-xl text-blue-600">€99 / jour</p>
+                    <a href="/vehicules?categorie=Sport&modele=" class="text-blue-500 hover:underline mt-2 block">Voir détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Témoignages Clients -->
+<section class="bg-white py-16">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Ce Que Nos Clients Disent</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="p-6 bg-gray-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-gray-700 italic">"EAZYRENT a rendu ma location si simple et rapide. Le véhicule était en parfait état !"</p>
+                <h4 class="mt-4 font-semibold text-gray-800">- John Doe</h4>
+            </div>
+            <div class="p-6 bg-gray-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-gray-700 italic">"Des prix incroyables pour un service impeccable. Je recommande vivement !"</p>
+                <h4 class="mt-4 font-semibold text-gray-800">- Jane Smith</h4>
+            </div>
+            <div class="p-6 bg-gray-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-gray-700 italic">"Une équipe sympathique et un processus de réservation sans tracas."</p>
+                <h4 class="mt-4 font-semibold text-gray-800">- Paul Johnson</h4>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Footer -->
-<footer class="bg-blue-600 text-white p-4 mt-6">
+<footer class="bg-gray-800 text-white py-4">
     <div class="container mx-auto text-center">
         <p>&copy; 2024 EAZYRENT. Tous droits réservés.</p>
     </div>

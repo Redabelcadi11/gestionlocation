@@ -1,0 +1,81 @@
+package com.agencelocation.controller;
+
+import com.agencelocation.model.Client;
+import com.agencelocation.model.Vehicule;
+import com.agencelocation.model.VehiculeType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+/*
+@Controller
+public class ClientController {
+
+    private final List<Client> clients;
+
+    public ClientController() {
+        // Initialisation des données factice
+
+        this.clients = List.of(
+                new Client(1L, "reda", "1234", "redabel@gmail.com");
+    }
+
+    @GetMapping("/clients")
+    public String afficherClients(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String password
+    ) {
+
+        // Filtrage des véhicules en fonction des critères
+        List<Client> filtresClients = clients;
+
+        if (username != null && !username.isEmpty()) {
+            filtresClients = filtresClients.stream()
+                    .filter(v -> v.getUsername().stream()
+                            )
+                    .collect(Collectors.toList());
+        }
+
+        if (password != null && !password.isEmpty()) {
+            filtresClients = filtresClients.stream()
+                    .filter(v -> v.getPassword().stream()
+                    )
+                    .collect(Collectors.toList());
+        }
+
+        // Ajouter les résultats filtrés au modèle
+        password.addAttribute("passwords", filtresClients);
+
+        // Ajouter toutes les catégories pour le formulaire de filtre
+        Set<String> toutesCategories = vehicules.stream()
+                .flatMap(v -> v.getCategories().stream().map(VehiculeType::getNom))
+                .collect(Collectors.toSet());
+        model.addAttribute("categories", toutesCategories);
+
+        return "vehicules"; // Vue de la liste des véhicules
+    }
+
+    @GetMapping("/vehicules/{id}")
+    public String afficherDetailsVehicule(@PathVariable Long id, Model model) {
+        Vehicule vehicule = vehicules.stream()
+                .filter(v -> v.getId() != null && v.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+
+        if (vehicule == null || vehicule.getPrix() == 0) {
+            model.addAttribute("errorMessage", "Le véhicule n'existe pas ou son prix est manquant.");
+            return "error"; // Page d'erreur personnalisée
+        }
+
+        model.addAttribute("vehicule", vehicule);
+        return "vehicule-details"; // Vue des détails du véhicule
+    }
+
+}
+*/

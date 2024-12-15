@@ -1,15 +1,18 @@
 package com.agencelocation.controller;
 
+import com.agencelocation.model.Client;
+import com.agencelocation.repository.ClientRepository;
 import com.agencelocation.model.Vehicule;
 import com.agencelocation.repository.VehiculeRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -17,24 +20,35 @@ public class MainController {
     @Autowired
     private VehiculeRepository vehiculeRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @GetMapping("/home")
     public String home(Model model) {
-        // Charger la liste des véhicules
         List<Vehicule> vehicules = vehiculeRepository.findAll();
         model.addAttribute("vehicules", vehicules);
 
-        // Ajouter l'information d'authentification au modèle
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAuthenticated = authentication != null && authentication.isAuthenticated();
-        model.addAttribute("isAuthenticated", isAuthenticated);
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<Client> clientOpt = clientRepository.findByUsername(username);
+            if (clientOpt.isPresent()) {
+                Client client = clientOpt.get();
+                model.addAttribute("isConnected", client.isEstConnecte());
+                model.addAttribute("client", client);
+            } else {
+                model.addAttribute("isConnected", false);
+            }
+        } else {
+            model.addAttribute("isConnected", false);
+        }
 
-        return "home"; // Le nom de la vue Thymeleaf
+        return "home";
     }
 
 
     @GetMapping("/")
     public String redirectToHome() {
-        return "redirect:/home";  // Redirige vers /home
+        return "redirect:/home";
     }
-
 }

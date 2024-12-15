@@ -1,4 +1,5 @@
 package com.agencelocation.model;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,8 +12,31 @@ public class Paiement {
     private Double montant;
 
     @OneToOne
-    @JoinColumn(name = "contrat_id")
+    @JoinColumn(name = "contrat_location_id")
     private ContratLocation contratLocation;
 
-    // Getters and setters
+    // Getters et Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(Double montant) {
+        this.montant = montant;
+    }
+
+    public ContratLocation getContratLocation() {
+        return contratLocation;
+    }
+
+    public void setContratLocation(ContratLocation contratLocation) {
+        this.contratLocation = contratLocation;
+    }
 }

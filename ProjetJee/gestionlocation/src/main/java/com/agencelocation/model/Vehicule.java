@@ -13,6 +13,16 @@ public class Vehicule {
     private String modele;
     private String immatriculation;
     private String imageUrl;
+    @Column(nullable = false)
+    private boolean disponible = true;
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
 
     @ManyToMany
     @JoinTable(
@@ -22,6 +32,13 @@ public class Vehicule {
     )
     private Set<VehiculeType> categories;
     private double prix; // Nouvel attribut
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
     // Constructeur par défaut
     public Vehicule() {}
 
@@ -33,6 +50,16 @@ public class Vehicule {
         this.imageUrl = imageUrl;
         this.categories = categories;
         this.prix = prix;
+    }
+    @Override
+    public String toString() {
+        return "Vehicule{" +
+                "id=" + id +
+                ", modele='" + modele + '\'' +
+                ", immatriculation='" + immatriculation + '\'' +
+                ", categories=" + categories +
+                ", prix=" + prix +
+                '}';
     }
 
     // Getters et setters

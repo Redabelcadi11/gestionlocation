@@ -1,66 +1,33 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profil utilisateur</title>
+  <title>Mon Profil - EAZYRENT</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-<!-- Navbar -->
+<body class="bg-gray-100 font-sans antialiased">
 <header class="bg-blue-600 text-white p-4 shadow-md">
   <div class="container mx-auto flex justify-between items-center">
-    <a href="/home" class="text-xl font-semibold hover:text-yellow-300 transition duration-200">
-      EAZYRENT
-    </a>
-    <nav class="space-x-4">
-      <div th:if="${#authentication?.authenticated}">
-        <a href="/logout" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
-      </div>
-      <div th:unless="${#authentication?.authenticated}">
-        <a href="/login" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Connexion</a>
-        <a href="/register" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Inscription</a>
-      </div>
-    </nav>
+    <a href="/home" class="text-xl font-semibold">EAZYRENT</a>
   </div>
 </header>
 
-
-<div class="max-w-3xl mx-auto p-6 bg-white shadow-xl rounded-lg mt-10">
-  <h1 class="text-4xl font-semibold text-center text-gray-800 mb-8">Mon Profil</h1>
-
-  <div class="grid grid-cols-1 gap-6">
-    <!-- Nom d'utilisateur -->
-    <div class="flex items-center">
-      <span class="w-1/4 text-lg font-medium text-gray-700">Nom d'utilisateur :</span>
-      <span class="w-3/4 p-2 bg-gray-200 rounded-md" th:text="${client.username}"></span>
-    </div>
-
-    <!-- Rôle -->
-    <div class="flex items-center">
-      <span class="w-1/4 text-lg font-medium text-gray-700">Rôle :</span>
-      <span class="w-3/4 p-2 bg-gray-200 rounded-md" th:text="${client.role}"></span>
-    </div>
-
-    <!-- Adresse e-mail -->
-    <div class="flex items-center">
-      <span class="w-1/4 text-lg font-medium text-gray-700">E-mail :</span>
-      <span class="w-3/4 p-2 bg-gray-200 rounded-md" th:text="${client.email}"></span>
-    </div>
-
-    <!-- Numéro de téléphone -->
-    <div class="flex items-center">
-      <span class="w-1/4 text-lg font-medium text-gray-700">Téléphone :</span>
-      <span class="w-3/4 p-2 bg-gray-200 rounded-md" th:text="${client.numeroTelephone}"></span>
-    </div>
-
-    <!-- Permis de conduire -->
-    <div class="flex items-center">
-      <span class="w-1/4 text-lg font-medium text-gray-700">Permis :</span>
-      <span class="w-3/4 p-2 bg-gray-200 rounded-md" th:text="${client.permisConduire}"></span>
-    </div>
+<main class="container mx-auto p-6">
+  <h2 class="text-2xl font-semibold mb-4">Mon Profil</h2>
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <p class="text-lg text-gray-800">Bienvenue, <span th:text="${username}"></span> !</p>
+    <!-- Affichez plus d'informations ici -->
   </div>
+</main>
+<div th:if="${#authentication?.authenticated}">
+  <p>Utilisateur connecté : <span th:text="${#authentication.name}"></span></p>
 </div>
 
+<footer class="bg-blue-600 text-white p-4 mt-6">
+  <div class="container mx-auto text-center">
+    <p>&copy; 2024 EAZYRENT. Tous droits réservés.</p>
+  </div>
+</footer>
 </body>
 </html>

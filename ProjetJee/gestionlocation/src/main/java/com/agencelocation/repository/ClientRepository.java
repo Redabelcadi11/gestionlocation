@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Optional<Client> findByUsername(String username);  // Trouver un client par son nom d'utilisateur
     Optional<Client> findByEmail(String email);        // Trouver un client par son email
+    boolean existsByEstConnecteTrue(); // Méthode pour vérifier si quelqu’un est connecté
+
 }

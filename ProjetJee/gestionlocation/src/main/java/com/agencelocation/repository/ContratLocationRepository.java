@@ -4,7 +4,10 @@ import com.agencelocation.model.ContratLocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 public interface ContratLocationRepository extends JpaRepository<ContratLocation, Long> {
-    // Ajoute des méthodes de requêtes personnalisées si nécessaire
+    List<ContratLocation> findByDateFinAfter(LocalDate date); // Contrats actifs
 }

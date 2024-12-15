@@ -30,7 +30,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         // URLs publiques accessibles sans authentification
-                        .requestMatchers("/", "/home", "/register", "/login", "/vehicules", "/vehicules/**").permitAll()
+                        .requestMatchers("/", "/home", "/admin", "/register", "/login", "/vehicules", "/vehicules/**").permitAll()
                         // Accès spécifique pour l'admin
                         .requestMatchers("/admin").hasRole("ADMIN")
                         // Toutes les autres requêtes nécessitent une authentification

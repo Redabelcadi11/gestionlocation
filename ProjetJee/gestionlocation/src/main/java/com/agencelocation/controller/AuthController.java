@@ -19,14 +19,14 @@ public class AuthController {
     // Page de connexion
     @GetMapping("/login")
     public String loginPage(Model model) {
-        model.addAttribute("error", null); // Initialiser l'attribut error (optionnel)
-        return "login"; // Assurez-vous que login.html existe dans /templates
+        model.addAttribute("error", null);
+        return "login";
     }
 
     // Page d'inscription
     @GetMapping("/register")
     public String registerPage() {
-        return "register"; // Assurez-vous que register.html existe dans /templates
+        return "register";
     }
 
     // Traitement de l'inscription
@@ -47,7 +47,7 @@ public class AuthController {
         // Création d'un nouvel utilisateur
         Client newClient = new Client();
         newClient.setUsername(username);
-        newClient.setPassword(password); // Pensez à encoder le mot de passe avant de le sauvegarder
+        newClient.setPassword(password);
         newClient.setEmail(email);
         newClient.setNumeroTelephone(numeroTelephone);
         newClient.setRole(Client.Role.ROLE_CLIENT);

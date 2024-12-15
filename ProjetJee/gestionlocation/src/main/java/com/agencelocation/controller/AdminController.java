@@ -27,7 +27,7 @@ public class AdminController {
         // Ajouter un nouvel objet Vehicule et les catégories disponibles au modèle
         model.addAttribute("vehicule", new Vehicule());
         model.addAttribute("categories", vehiculeTypeRepository.findAll());
-        return "admin";  // Page d'administration (vous avez déjà cette page)
+        return "admin";  // Page d'administration
     }
 
     @GetMapping("/admin/vehicule/ajouter")
@@ -35,14 +35,14 @@ public class AdminController {
         // Préparer le formulaire d'ajout de véhicule
         model.addAttribute("vehicule", new Vehicule());
         model.addAttribute("categories", vehiculeTypeRepository.findAll());
-        return "ajoutVehicule";  // Vue pour ajouter un véhicule (ajoutVehicule.html)
+        return "ajoutVehicule";
     }
     @GetMapping("/admin/vehicule/afficher")
     public String showAfficherVehiculeForm(Model model) {
         // Préparer le formulaire d'ajout de véhicule
         model.addAttribute("vehicule", new Vehicule());
         model.addAttribute("categories", vehiculeTypeRepository.findAll());
-        return "afficherVehicule";  // Vue pour ajouter un véhicule (ajoutVehicule.html)
+        return "afficherVehicule";
     }
 
     @PostMapping("/admin/vehicule")

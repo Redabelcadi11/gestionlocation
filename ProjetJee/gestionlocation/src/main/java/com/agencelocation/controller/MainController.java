@@ -29,18 +29,19 @@ public class MainController {
         model.addAttribute("vehicules", vehicules);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
+
+        // Vérifie si l'utilisateur est connecté
+        boolean isConnected = authentication != null && authentication.isAuthenticated() &&
+                !(authentication.getPrincipal() instanceof String &&
+                        authentication.getPrincipal().equals("anonymousUser"));
+
+        model.addAttribute("isConnected", isConnected);
+
+        // Ajoute les informations du client si connecté
+        if (isConnected) {
             String username = authentication.getName();
             Optional<Client> clientOpt = clientRepository.findByUsername(username);
-            if (clientOpt.isPresent()) {
-                Client client = clientOpt.get();
-                model.addAttribute("isConnected", client.isEstConnecte());
-                model.addAttribute("client", client);
-            } else {
-                model.addAttribute("isConnected", false);
-            }
-        } else {
-            model.addAttribute("isConnected", false);
+            clientOpt.ifPresent(client -> model.addAttribute("client", client));
         }
 
         return "home";

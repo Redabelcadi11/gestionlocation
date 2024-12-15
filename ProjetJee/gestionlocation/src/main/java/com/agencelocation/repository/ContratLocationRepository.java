@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ContratLocationRepository extends JpaRepository<ContratLocation, Long> {
     List<ContratLocation> findByDateFinAfter(LocalDate date); // Contrats actifs
+    List<ContratLocation> findByClientId(Long clientId);
 }

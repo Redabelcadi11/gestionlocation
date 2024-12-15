@@ -13,16 +13,9 @@ public class Vehicule {
     private String modele;
     private String immatriculation;
     private String imageUrl;
+
     @Column(nullable = false)
     private boolean disponible = true;
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
 
     @ManyToMany
     @JoinTable(
@@ -31,14 +24,9 @@ public class Vehicule {
             inverseJoinColumns = @JoinColumn(name = "categorie_id")
     )
     private Set<VehiculeType> categories;
-    private double prix; // Nouvel attribut
-    public double getPrix() {
-        return prix;
-    }
 
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
+    private double prix; // Prix par jour du véhicule
+
     // Constructeur par défaut
     public Vehicule() {}
 
@@ -51,24 +39,14 @@ public class Vehicule {
         this.categories = categories;
         this.prix = prix;
     }
-    @Override
-    public String toString() {
-        return "Vehicule{" +
-                "id=" + id +
-                ", modele='" + modele + '\'' +
-                ", immatriculation='" + immatriculation + '\'' +
-                ", categories=" + categories +
-                ", prix=" + prix +
-                '}';
-    }
 
     // Getters et setters
-    public Set<VehiculeType> getCategories() {
-        return categories;
+    public Long getId() {
+        return id;
     }
 
-    public void setCategories(Set<VehiculeType> categories) {
-        this.categories = categories;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getModele() {
@@ -82,9 +60,6 @@ public class Vehicule {
     public String getImmatriculation() {
         return immatriculation;
     }
-    public Long getId() {
-        return id;
-    }
 
     public void setImmatriculation(String immatriculation) {
         this.immatriculation = immatriculation;
@@ -96,5 +71,42 @@ public class Vehicule {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public Set<VehiculeType> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<VehiculeType> categories) {
+        this.categories = categories;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicule{" +
+                "id=" + id +
+                ", modele='" + modele + '\'' +
+                ", immatriculation='" + immatriculation + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", disponible=" + disponible +
+                ", categories=" + categories +
+                ", prix=" + prix +
+                '}';
     }
 }

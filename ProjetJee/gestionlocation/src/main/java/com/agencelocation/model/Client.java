@@ -24,7 +24,7 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<ContratLocation> contrats;
 
-    private boolean estConnecte; // Nouveau champ pour l'état de connexion
+    private boolean estConnecte;
 
     // Getters et setters
     public boolean isEstConnecte() {
@@ -62,6 +62,8 @@ public class Client {
     public String getEmail() {
         return email;
     }
+
+    public Long getId(){return  id;}
 
     public void setNumeroTelephone(String numeroTelephone) {
         this.numeroTelephone = numeroTelephone;

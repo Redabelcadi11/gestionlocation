@@ -3,7 +3,7 @@ package com.agencelocation.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity // Ajout de l'annotation @Entity pour en faire une entité JPA
+@Entity
 public class ContratLocation {
 
     @Id // Définition de la clé primaire

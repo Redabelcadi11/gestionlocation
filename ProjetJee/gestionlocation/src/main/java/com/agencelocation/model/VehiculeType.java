@@ -10,18 +10,21 @@ public class VehiculeType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String nom;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Vehicule> vehicules;
 
-    // Constructeurs, getters et setters
+    // Constructeur par défaut
     public VehiculeType() {}
 
+    // Constructeur personnalisé
     public VehiculeType(String nom) {
         this.nom = nom;
     }
 
+    // Getters et setters
     public Long getId() {
         return id;
     }
@@ -44,5 +47,13 @@ public class VehiculeType {
 
     public void setVehicules(Set<Vehicule> vehicules) {
         this.vehicules = vehicules;
+    }
+
+    @Override
+    public String toString() {
+        return "VehiculeType{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                '}';
     }
 }

@@ -26,7 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/register", "/login") // Désactive CSRF pour ces URLs si besoin
+                        .ignoringRequestMatchers("/register", "/login","/ConfirmerLocation") // Désactive CSRF pour ces URLs si besoin
                 )
                 .authorizeHttpRequests(auth -> auth
                         // URLs publiques accessibles sans authentification

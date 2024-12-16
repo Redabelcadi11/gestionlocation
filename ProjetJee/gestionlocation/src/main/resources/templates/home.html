@@ -20,9 +20,13 @@
         </a>
         <nav class="space-x-4">
             <div th:if="${isConnected}">
-                <a href="/profil" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded-md">Profil</a>
+                <a href="/profile" class="px-5 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-lg shadow-lg font-medium transform hover:scale-105 transition-all">
+                    Accéder à Mon Profil
+                </a>
                 <a href="/logout" th:href="@{/logout(username=${client.username})}"
-                   class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md">Déconnexion</a>
+                   class="px-5 py-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white rounded-lg shadow-lg font-medium transform hover:scale-105 transition-all">
+                    Déconnexion
+                </a>
             </div>
             <div th:if="${!isConnected}">
                 <a href="/login" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Connexion</a>
@@ -31,11 +35,6 @@
         </nav>
     </div>
 </header>
-
-
-
-
-
 
 <!-- Hero Section -->
 <section class="relative h-screen bg-cover bg-center text-white flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1669254572206-2a44dda91757?q=80&w=2111&auto=format&fit=crop');">
